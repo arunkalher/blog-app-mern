@@ -1,0 +1,52 @@
+.blog0{
+  
+    margin: 1rem;
+  
+}
+
+
+.upvote0{
+height: 2rem;
+width: 1rem;
+}
+
+.blog0-heading{
+    font-family: "Sofia", cursive;
+    color:var(--bright-blue);
+    margin:1rem auto;
+    font-size: 2rem;
+    text-align: center;
+}
+.blog-p0{
+
+    text-align: justify;
+    line-height: 2rem;
+    animation: watcher1 linear ;
+    animation-timeline: view();
+    transform: scale(0.8);
+}
+@keyframes watcher1 {
+    to{
+        display: block;
+        transform: scale(1);
+      
+    }
+    
+}
+
+.author0{
+    font-family: "Sofia", cursive;
+    text-align: end;
+    margin:1rem auto;
+    font-size: 1.1rem;
+    color:var(--neon-blue);
+    
+}
+
+.upvote-wrap0{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap:.1rem;
+    margin: .2rem 
+}

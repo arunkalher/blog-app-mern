@@ -1,0 +1,31 @@
+#blogs{
+   
+    margin: 2rem auto;
+}
+#spec-blog{
+    margin: 1rem auto;
+    width:30rem;
+    max-width: 90vw;
+}
+#specbutton{
+    cursor: pointer;
+}
+
+#show-msg{
+    text-align: center;
+    margin: 3rem auto;
+    font-size: 1.5rem;
+}
+
+#create{
+    background-color: var(--bright-blue);
+    width:11rem;
+    max-width: 90vw;
+    padding: .7rem;
+    font-size:1.4rem;
+    display: block;
+    margin: 2rem auto;
+    border-radius: .2rem;
+    color:var(--white);
+    cursor: pointer;
+}

@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400|Inconsolata:400');
+
+*,
+::after,
+::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  list-style: none;
+
+
+ 
+  font-family: "Montserrat";
+}
+:root{
+    --lime:#00DD00;
+    --pastel-purple:#C5ADC5;
+    --light-steel-blue:#B2B5E0;
+    --yellow-green:#BAFF39;
+    --ivory:#FAF5E9;
+    --tan-yellow:#FFCC00;
+    --green:#009B4D;
+    --raz:#EF036C;
+    --heli:#EE72F8;
+    --light-blue:#E9F1FA;
+    --bright-blue:#00ABE4;
+    --white:white;
+    --black:black;
+    --beige:#DDD0C8;
+    --dark-grey:#323232;
+    --neon-blue:#2272FF;
+    --orange:#FAE7A5;
+    --orange-2:#F9B872;
+    --powder-blue:#B6E1E7;
+    --cavern-pink: #E1B0AC;
+    --light-pink :#F2D4D6;
+    --navy-blue:#213F99;
+    --deep-navy-blue:#01257D;
+    --electric-blue :#00FFFF;
+    --electric-blue-1 :steelblue;
+    --violet-2: rgb(184, 118, 241);
+    --violet-1: rgb(126 34 206);
+   
+    --Brigh-blue: #51e2f5;
+    --Blu-Green: #9df9ef;
+    --Dust-White: #edf756;
+    --Pin-Sand: #ffa8B6;
+    --Dark-Sand: #a28089;
+    --Ice-Cold: #a0d2eb;
+    --Freeze-Purple: #e5eaf5;
+    --Medium-Purple: #d0bdf4;
+    --Purple-Pain: #8458B3;
+    --Heavy-Purple: #a28089;
+    --Yass-Queen: #ff1d58;
+    --Sister-Sister: #f75990;
+    --Crown-Yellow: #fff685;
+    --Blue-Light: #00DDFF;
+    --Brutal-Blue: #0049B7;
+    --Brightly-Orange : #f43a09;
+    --Grandpa-Orange: #ffb766;
+    --Grey-Blue-Green: #c2edda;
+    --Live-Green: #68d388;
+    --Pinky: #fbe3e8;
+    --Blue-Greeny: #5cbdb9;
+    --Teeny-Greeny: #ebf6f5;
+    --Bright-Green: #beef00;
+    --Electric-Red: #ff0028;
+    --Deep-Green: #657a00;
+    --Power-Blue: #1400c6;
+    --Background-Tan: #fceed1;
+    --Purple-y: #7d3cff;
+    --Yellow-Gloves: #f2d53c;
+    --Redhead: #c80e13;
+    --Sand-Tan: #e1b382;
+    --Sand-Tan-Shadow: #c89666;
+    --Night-Blue: #2d545e;
+    --Night-Blue-Shadow: #12343b;
+    --Ragin-Beige: #fff5d7;
+    --Coral-Pink: #ff5e6c;
+    --Sleuthe-Yellow: #feb300;
+    --Pink-Leaf: #ffaaab;
+    
+    --box-shadow-1: var(--bright-blue) 0px 2px 5px;
+    --box-shadow-2: var(--violet-2) 0px 2px 5px;
+    --box-shadow-3: var(--raz) 0px 2px 5px;
+    --box-shadow-4: var(--heli) 0px 2px 5px;
+}
+
+body{
+  background-color: var(--white);
+}
+
+button{
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
