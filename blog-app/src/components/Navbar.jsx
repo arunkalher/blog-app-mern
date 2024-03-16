@@ -7,7 +7,7 @@ import {BrowserRouter as Router,
 export default function Navbar(props) {
   const {userN,setuserN}=props.userparams
   
-  function Navigate(ele)
+  function Navigate(ele) 
   {
     let _target=ele.replace(" ","")
     _target=_target.toLowerCase()
