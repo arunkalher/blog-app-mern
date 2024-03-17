@@ -10,7 +10,7 @@ import Specificblog from './Specificblog'
 
 export default function Blog(props) {
     const navigate=useNavigate()
-    const {setspecuser,setspecusername}=props.userparams
+    const {setspecuser,setspecusername}=props.spec
    
     const [blogDisplay,setblogDisplay,blogsDisplay,setblogsDisplay,specblog,setspecblog]=props.triggers
     // <Router>

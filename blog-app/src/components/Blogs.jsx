@@ -8,14 +8,13 @@ import {BrowserRouter as Router,
     Routes,
     Route,Navigate,useNavigate} from "react-router-dom"
 export default function Blogs(props) {
-
+  // const {specusername,setspecusername}=params.specs
   const navigate=useNavigate()
     const [msg,setmsg]=useState("none")
-    const username=props.user
-    console.log(username)
+    
+    const {specusername,setspecusername}=props.spec
     const {userN,setuserN}=props.userparams
-    const [user,setuser]=useState(username)
-    const [specu,setspecu]=useState("")
+    const username=userN
     const {l,setl}=props.params
     const [blogs,setblogs]=useState(null)
     const [loading,setLoading]=useState(true)
@@ -23,7 +22,7 @@ export default function Blogs(props) {
     const [blogDisplay,setblogDisplay]=useState(false)
     const [blogsDisplay,setblogsDisplay]=useState(true)
     const [specblog,setspecblog]=useState({})
-    const [specusername,setspecusername]=useState("")
+   
     const error="Error..."
     //fetch blogs
     useEffect(
@@ -33,11 +32,11 @@ export default function Blogs(props) {
         {   
             try{
               let data=""
-           
-              if(!username)
+            console.log("user",userN)
+              if(!userN)
             data= await fetch("http://192.168.123.67:5001/blogs")
           else
-          data= await fetch("http://192.168.123.67:5001/blogs"+"/"+username)
+          data= await fetch("http://192.168.123.67:5001/blogs"+"/"+userN)
         
             if(data.ok)
             {
@@ -89,13 +88,13 @@ export default function Blogs(props) {
         }
         fetchData()
         return ()=>setuserN("")
+         
         }
-        ,[username]
+        ,[userN]
     )
   return (
 
-    <Routes>
-      <Route path="/" element={
+  
        <> 
        <section id="show-msg-wrap" style={{display:msg}}>
        <h1 id="show-msg" >There are no posts to show.</h1>
@@ -108,7 +107,7 @@ export default function Blogs(props) {
               
            {(loading)?<><h1 style={{margin:"1rem auto",textAlign:"center"}}>Loading.. </h1></>:
            (issuccess)?<>{blogs.map(blog=>{
-              return <Blog userparams={{specusername,setspecusername}} key={blog._id} data={blog} triggers={[blogDisplay,setblogDisplay,blogsDisplay,setblogsDisplay,specblog,setspecblog]}>Hello</Blog>
+              return <Blog spec={{specusername,setspecusername}} key={blog._id} data={blog} triggers={[blogDisplay,setblogDisplay,blogsDisplay,setblogsDisplay,specblog,setspecblog]}>Hello</Blog>
            })}</>:<h1 className='error'>{error}</h1>}
           
           </section>}
@@ -122,13 +121,9 @@ export default function Blogs(props) {
           
           </div>}
           </>
-      }>
+     
 
-      </Route>
-      <Route path="/specuser" element={<Specuser username={specusername}/>}>
-
-      </Route>
-    </Routes>
+      
 
   
   )

@@ -4,6 +4,7 @@ import cross  from "../images/cross3.png"
 import {BrowserRouter as Router,
   Routes,
   Route,Navigate,useNavigate} from "react-router-dom"
+import home_icon from "../images/home.svg"
 export default function Navbar(props) {
   const {userN,setuserN}=props.userparams
   
@@ -21,7 +22,9 @@ export default function Navbar(props) {
   return (
     <>
    <nav id="nav">
-      <span id="logo">Myblog</span>
+      <img id ="home-icon" src={home_icon} alt="Home"  onClick={()=>{
+         setuserN("")
+          Navigate("/")}}/>
       <ul id="nav-items-ul">
         <li key="home" className="nav-item rem" onClick={()=>{
          setuserN("")

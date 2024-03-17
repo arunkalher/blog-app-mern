@@ -13,10 +13,13 @@ import Createpost from './components/Createpost';
 import Logout from './components/Logout';
 import Myprofile from "./components/Myprofile"
 import React,{useState,useEffect} from 'react';
+import Specuser from './components/Specuser';
+
 function App() {
 
   const [l,setl]=useState([""])
   const [userN,setuserN]=useState("")
+  const [specusername,setspecusername]=useState("")
  
   useEffect(()=>{
        
@@ -61,13 +64,14 @@ function App() {
        
     <Routes>
         <Route path="*" element={<>
-          < Blogs params={{l,setl}} user={userN} userparams={{userN,setuserN}}/>
+          < Blogs params={{l,setl}} userparams={{userN,setuserN}} spec={{specusername,setspecusername}}/>
         </>}></Route>
         <Route path="/signin" element={<Signin params={{l,setl}}/>}></Route>
         <Route path="/signup" element={<Signup params={{l,setl}}/>}></Route>
         <Route path="/createpost" element={<Createpost  />}></Route>
         <Route path="/myprofile/*" element={<Myprofile userparams={{userN,setuserN}} />}></Route>
         <Route path="/logout" element={<Logout />}></Route>
+        <Route path="/specuser" element={<Specuser username={specusername}  userparams={{userN,setuserN}}/>}></Route>
     </Routes>
     </Router>
   );

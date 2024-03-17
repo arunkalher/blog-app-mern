@@ -8,12 +8,12 @@ import  Editprofile from './Editprofile'
 export default function Myprofile(props) {
   const {userN,setuserN}=props.userparams
   const [username,setusername]=useState("")
-  const [posts,setposts]=useState("1")
-  const [upvotes,setupvotes]=useState("1")
-  const [name,setname]=useState("1")
-  const [role,setrole]=useState("1")
-  const [address,setaddress]=useState("1")
-  const [contact,setcontact]=useState("1")
+  const [posts,setposts]=useState("")
+  const [upvotes,setupvotes]=useState("")
+  const [name,setname]=useState("")
+  const [role,setrole]=useState("")
+  const [address,setaddress]=useState("")
+  const [contact,setcontact]=useState("")
 
   const navigate=useNavigate()
   useEffect(()=>{
@@ -34,14 +34,14 @@ export default function Myprofile(props) {
          }
            let res= await fetch("http://192.168.123.67:5001/users/checktoken",params)
            res=await res.json()
-           console.log(res)
+          
           if(!res.status)
           {
              navigate("/")
           }
           else{
-            
-             setusername(res.username)
+            console.log(res)
+            setusername(res.username)
              let data= await fetch("http://192.168.123.67:5001/blogs"+"/"+res.username)
            
              
@@ -53,10 +53,10 @@ export default function Myprofile(props) {
               data=data.data
               let upvotes=0
              
-                setaddress(res.from)
-                setname(res.name)
-                setcontact(res.contact)
-                setrole(res.role)
+                setaddress(res.user.from)
+                setname(res.user.name)
+                setcontact(res.user.contact)
+                setrole(res.user.role)
               
               
 
@@ -94,7 +94,7 @@ export default function Myprofile(props) {
     <div className='post-field'>Name : <span id="name-">{name}</span></div>
     <div className='post-field'>Role : <span id="role-">{role}</span></div>
     <div className='post-field'>From : <span id="address-">{address}</span></div>
-    <div className='post-field'>Contact here : <span id="contact-"><a href={"mailto:"+contact}>{contact}</a></span></div>
+    <div className='post-field'>Contact : <span id="contact-"><a href={"mailto:"+contact}>{contact}</a></span></div>
   
      <button id="edit-profile" onClick={()=>{
     

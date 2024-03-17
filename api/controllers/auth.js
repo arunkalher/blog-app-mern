@@ -82,10 +82,22 @@ const getUser=async (req,res)=>
    
    
 }
-
+const updateUser=async (req,res)=>{
+    const {username}=req.params
+    console.log(username)
+    console.log(req.body)
+    try{
+       
+        const user=await User.updateOne({username:username},req.body)
+        res.status(200).json({status:1,user:user}) 
+    }
+   catch(err){
+    res.status(200).json({status:0,error:err}) 
+   }
+}
      
 module.exports={
-register,login,checktoken,getUser
+register,login,checktoken,getUser,updateUser
 
 }
 

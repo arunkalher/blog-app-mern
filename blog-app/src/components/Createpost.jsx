@@ -101,7 +101,7 @@ export default function Createpost() {
                 'Content-Type':'application/json'
             },
             body:JSON.stringify({
-              heading:content,content,author:username
+              heading:topic,content,author:username
             })
           }
             let res= await fetch("http://192.168.123.67:5001/blogs",params)

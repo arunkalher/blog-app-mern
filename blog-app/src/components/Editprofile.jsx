@@ -37,7 +37,7 @@ export default function Editprofile(props) {
                  navigate("/")
               }
               else{
-                
+             
                  setusername(res.username)
               }
               
@@ -61,7 +61,48 @@ export default function Editprofile(props) {
           return
         }
 
-
+      async function tryUpdate(){
+        let params =  {
+          method: "PATCH",
+          headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+          name,role,from,contact
+        })
+      }
+        let res= await fetch("http://192.168.123.67:5001/users/update/"+username,params)
+       
+        res=await res.json()
+       if(res.success)
+       {
+        seterror("Successfully Updated.")
+        setcolor("green")
+        if(timeout)
+        clearTimeout(timeout)
+        settimeout(setTimeout(()=>seterror(""),2000))
+       }
+       else{
+        seterror("Some Error Occured.")
+        setcolor("red")
+        if(timeout)
+        clearTimeout(timeout)
+        settimeout(setTimeout(()=>seterror(""),2000))
+       }  
+      }
+      try{
+        tryUpdate()
+      }
+      catch
+      {
+        seterror("Some Error Occured.")
+        setcolor("red")
+        if(timeout)
+        clearTimeout(timeout)
+        settimeout(setTimeout(()=>seterror(""),2000))
+       
+      }
+     
 
     }
   return (
