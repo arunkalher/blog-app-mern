@@ -50,3 +50,6 @@
     color:var(--white);
     cursor: pointer;
 }
+#my-profile-back{
+    margin:1rem;
+}

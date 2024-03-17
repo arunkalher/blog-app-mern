@@ -40,6 +40,7 @@
     flex-direction: column;
     justify-content: space-around;
     padding: .2rem;
+    cursor: pointer;
 }
 
 .menu-item{
@@ -96,5 +97,6 @@
     height:2rem;
     border-radius: .1rem;
     margin-bottom: 2rem;
+    cursor: pointer;
    
 }

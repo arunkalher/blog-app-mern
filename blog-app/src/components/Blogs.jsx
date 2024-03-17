@@ -10,8 +10,9 @@ import {BrowserRouter as Router,
 export default function Blogs(props) {
   // const {specusername,setspecusername}=params.specs
   const navigate=useNavigate()
+  const {postid,setpostid}=props.id
     const [msg,setmsg]=useState("none")
-    
+    const [editDelete,setEditDelete]=useState("none")
     const {specusername,setspecusername}=props.spec
     const {userN,setuserN}=props.userparams
     const username=userN
@@ -37,7 +38,8 @@ export default function Blogs(props) {
             data= await fetch("http://192.168.123.67:5001/blogs")
           else
           data= await fetch("http://192.168.123.67:5001/blogs"+"/"+userN)
-        
+         
+
             if(data.ok)
             {
                 data=await data.json()
@@ -74,6 +76,8 @@ export default function Blogs(props) {
                 }
                   let res= await fetch("http://192.168.123.67:5001/users/checktoken",params)
                   res=await res.json()
+                  if(userN===res.username)
+                  {setEditDelete("flex")}
                  if(res.status)
                  {
                     setl(["My Profile","Create Post","Logout"])
@@ -96,6 +100,11 @@ export default function Blogs(props) {
 
   
        <> 
+       {username && <button id="blogs-back" onClick={()=>{
+        setuserN("")
+          navigate("/")
+
+        }}>{String.fromCharCode(8592)} Back</button>}
        <section id="show-msg-wrap" style={{display:msg}}>
        <h1 id="show-msg" >There are no posts to show.</h1>
        <button id="create" onClick={()=>{
@@ -107,7 +116,7 @@ export default function Blogs(props) {
               
            {(loading)?<><h1 style={{margin:"1rem auto",textAlign:"center"}}>Loading.. </h1></>:
            (issuccess)?<>{blogs.map(blog=>{
-              return <Blog spec={{specusername,setspecusername}} key={blog._id} data={blog} triggers={[blogDisplay,setblogDisplay,blogsDisplay,setblogsDisplay,specblog,setspecblog]}>Hello</Blog>
+              return <Blog id={{postid,setpostid}} edit_delete={editDelete} spec={{specusername,setspecusername}} key={blog._id} data={blog} triggers={[blogDisplay,setblogDisplay,blogsDisplay,setblogsDisplay,specblog,setspecblog]}>Hello</Blog>
            })}</>:<h1 className='error'>{error}</h1>}
           
           </section>}
@@ -117,7 +126,7 @@ export default function Blogs(props) {
                setblogsDisplay(true)
                setblogDisplay(false)
           }}>{String.fromCharCode(8592)} Back</button>
-          <Specificblog data={specblog}/>
+          <Specificblog data={specblog} spec={{specusername,setspecusername}}/>
           
           </div>}
           </>

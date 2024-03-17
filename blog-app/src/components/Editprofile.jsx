@@ -74,13 +74,17 @@ export default function Editprofile(props) {
         let res= await fetch("http://192.168.123.67:5001/users/update/"+username,params)
        
         res=await res.json()
-       if(res.success)
+       if(res.status)
        {
         seterror("Successfully Updated.")
         setcolor("green")
         if(timeout)
         clearTimeout(timeout)
         settimeout(setTimeout(()=>seterror(""),2000))
+        setcontact("")
+        setname("")
+        setfrom("")
+        setrole("")
        }
        else{
         seterror("Some Error Occured.")
@@ -107,6 +111,9 @@ export default function Editprofile(props) {
     }
   return (
     <section id="edit-details">
+      <button id="edit-profile-back" onClick={()=>{
+          navigate("/myprofile")
+        }}>{String.fromCharCode(8592)} Back</button>
     <div id="error-create" style={{color:color}}>{errmsg}</div>
     <section id="name-wrap">
      <label htmlFor="name-edit" className='edit-labels'>Name</label>

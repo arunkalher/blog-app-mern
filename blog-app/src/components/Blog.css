@@ -78,3 +78,18 @@
     margin-top: .5rem;
     cursor: pointer;
 }
+
+#edit-image,#delete-image{
+    width:2rem;
+    height: 2rem;
+    margin:0.1rem;
+    cursor: pointer;
+}
+
+#delete-edit{
+    margin-top: .7rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}

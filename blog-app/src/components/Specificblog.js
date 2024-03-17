@@ -2,7 +2,12 @@ import React,{useContext, useEffect} from 'react'
 import Contextblog from '../contexts/Contextblog'
 import upvote from "../images/upvote.svg"
 import "./Specificblog.css"
+import {BrowserRouter as Router,
+  Routes,
+  Route,Navigate,useNavigate} from "react-router-dom"
 export default function Specificblog(props) {
+  const navigate=useNavigate()
+  const {setspecuser,setspecusername}=props.spec
   useEffect(()=>window.scrollTo(0,0),[])
   let {heading,author,date,content,upvotes,minRead}=props.data
   return (
@@ -13,7 +18,10 @@ export default function Specificblog(props) {
         
        
         <p className='blog-p0'>{content}</p>
-        <div className="author0">- {author}</div>
+        <div className="author0" style={{cursor:"pointer"}}onClick={()=>{
+            setspecusername(author)
+            navigate("/specuser")
+        }}>- {author}</div>
         <div className="upvote-wrap0">
         <img src={upvote} className="upvote0" alt=""/>
         <h4 className='upvote-no0'>{upvotes}</h4>

@@ -1,5 +1,7 @@
 import React,{useReact, useState,useContext} from 'react'
 import upvote from "../images/upvote.svg"
+import edit from "../images/edit.png"
+import delete_ from "../images/delete.png"
 import "./Blog.css"
 import Contextblog from '../contexts/Contextblog'
 import {BrowserRouter as Router,
@@ -9,9 +11,13 @@ import Specificblog from './Specificblog'
 
 
 export default function Blog(props) {
+
+    const {postid,setpostid}=props.id
     const navigate=useNavigate()
     const {setspecuser,setspecusername}=props.spec
-   
+  
+    const edit_delete=props.edit_delete
+    
     const [blogDisplay,setblogDisplay,blogsDisplay,setblogsDisplay,specblog,setspecblog]=props.triggers
     // <Router>
     // <Routes>
@@ -22,7 +28,8 @@ export default function Blog(props) {
    
    
     // </Router>
-    let {heading,author,date,content,upvotes,minRead}=props.data
+    let {heading,author,date,content,upvotes,minRead,_id}=props.data
+  
     const [expand,setExpand]=useState(false)
     const [onceClicked,setOnceClicked]=useState(false)
   
@@ -82,6 +89,13 @@ export default function Blog(props) {
        
         <p className='blog-p'>{newcontent}</p>
         <div className='read-more'style={{display:dis}} onClick={()=>readClicked()}>{expand?"Read Less...":"Read More..."}</div>
+        <section id="delete-edit" style={{display:edit_delete}} >
+            <img  id="edit-image" src={edit} alt="Edit" onClick={()=>{
+                setpostid(_id)
+                navigate("/editpost")
+            }}/>
+            <img  id="delete-image" src={delete_} alt="Delete" />
+        </section>
         <div className="upvote-wrap">
         <img src={upvote} className="upvote" alt=""/>
         <h4 className='upvote-no'>{upvotes}</h4>

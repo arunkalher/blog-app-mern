@@ -21,9 +21,7 @@ width: 1rem;
 
     text-align: justify;
     line-height: 2rem;
-    animation: watcher1 linear ;
-    animation-timeline: view();
-    transform: scale(0.8);
+   margin-top: 1rem;
 }
 @keyframes watcher1 {
     to{

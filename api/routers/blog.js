@@ -5,12 +5,15 @@ const {
     getBlog,
     createBlog,  
     updateBlog, 
-    deleteBlog
+    deleteBlog,
+    getBlogByID,
+    updateBlogByID
 } =require("../controllers/blogs")
 
 router.route("/").get(getAllBlogs).post(createBlog)
 router.route("/:id").get(getBlog).patch(updateBlog).delete(deleteBlog)
-router.route("/get").get(getBlog)
+router.route("/blog/:id").get(getBlogByID).patch(updateBlogByID)
+
 // router.route("/write").get(getlBlog)
 
 module.exports=router

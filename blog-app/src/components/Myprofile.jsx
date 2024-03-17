@@ -84,6 +84,9 @@ export default function Myprofile(props) {
     <Routes>
       <Route path="/edit" element={<Editprofile/>}></Route>
       <Route path="/" element={<section id="my-profile">
+        <button id="my-profile-back" onClick={()=>{
+          navigate("/")
+        }}>{String.fromCharCode(8592)} Back</button>
       <section id="name-wrap1">
     <div id="name1">Welcome <span id="u-name1"> {username}</span></div>
     </section>

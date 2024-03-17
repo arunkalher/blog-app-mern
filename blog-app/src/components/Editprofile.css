@@ -1,7 +1,10 @@
 #edit-details{
-    margin:5rem auto;
+    margin:3rem auto;
 }
-
+#edit-profile-back{
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+}
 #name-wrap,#from-wrap,#role-wrap,#contact-wrap{
     display: flex;
     flex-wrap: wrap;

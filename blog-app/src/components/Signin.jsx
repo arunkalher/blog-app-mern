@@ -8,9 +8,12 @@ export default function Signin(props) {
   
   const [username,setusername]=useState("")
   const [password,setpassword]=useState("")
+  const [errmsg,seterror]=useState("")
+  const [timeout,settimeout]=useState("null")
   const navigate=useNavigate()
   return (
     <section id="login">
+      <div id="error-signin">{errmsg}</div>
         <section id="name-wrap">
           <label htmlFor="username">Username</label>
           <input type="text"  id="username" value={username} onChange={(e)=>{
@@ -67,13 +70,13 @@ export default function Signin(props) {
           }
           else{
             // seterror("Username already exists")
-            // if(timeout)
-            // clearTimeout(timeout)
-            // settimeout(setTimeout(()=>seterror(""),2000))
-         
+           
+            seterror("Invalid Credentials.")
             setpassword((prev)=>"")
             setusername((prev)=>"")
-       
+        if(timeout)
+            clearTimeout(timeout)
+            settimeout(setTimeout(()=>seterror(""),2000))
           }
         }
         tryLogin()
