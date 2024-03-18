@@ -1,5 +1,6 @@
-import React,{useReact, useState,useContext} from 'react'
-import upvote from "../images/upvote.svg"
+import React,{useReact, useState,useContext,useEffect} from 'react'
+import upvote from "../images/empty_like.jpg"
+import upvote_filled from "../images/filled_like.jpg"
 import edit from "../images/edit.png"
 import delete_ from "../images/delete.png"
 import "./Blog.css"
@@ -17,8 +18,9 @@ export default function Blog(props) {
     const {setspecuser,setspecusername}=props.spec
   
     const edit_delete=props.edit_delete
-    
+    const [filled,setfilled]=useState(false)
     const [blogDisplay,setblogDisplay,blogsDisplay,setblogsDisplay,specblog,setspecblog]=props.triggers
+    const {rerender,setrerender}=props.re
     // <Router>
     // <Routes>
     // <Route path="/specific_path" element={<Specificblog />}></Route>
@@ -28,10 +30,14 @@ export default function Blog(props) {
    
    
     // </Router>
-    let {heading,author,date,content,upvotes,minRead,_id}=props.data
-  
+    let {heading:heading,author,date,content,upvotes:_upvotes,_id}=props.data
+    const [upvotes,setupvotes]=useState(_upvotes.length)
+ 
+   console.log(_upvotes)
+    const [username,setusername]=useState("")
     const [expand,setExpand]=useState(false)
     const [onceClicked,setOnceClicked]=useState(false)
+    
   
     let dis="none"
     let newC=""
@@ -43,6 +49,52 @@ export default function Blog(props) {
     newC=content.slice(0,300)+"..."}
    date=(new Date(date).toISOString().split('T')[0])
     const [newcontent,setnewcontent]=useState(newC)
+    useEffect(
+        ()=>{
+            console.log("useeffect")
+        console.log(_upvotes.length)
+    setupvotes(_upvotes.length)
+            
+        const fetchData=async()=>
+        {   
+         
+            const token=localStorage.token
+            
+            if(token)
+            {
+                let params =  {
+                    method: "POST",
+                    headers:{
+                      'Content-Type':'application/json'
+                  },
+                  body:JSON.stringify({
+                    token
+                  })
+                }
+                  let res= await fetch("http://192.168.123.67:5001/users/checktoken",params)
+                  res=await res.json()
+           
+                 if(res.status)
+                 {
+                    setusername(res.username)
+                    if (_upvotes.includes(res.username))
+                    {
+                     setfilled(true)
+                     console.log("filled",filled)
+                    }
+                    else{
+                        setfilled(false)
+                    }
+                    
+                    
+                 }
+                 
+            }
+         
+        }
+        fetchData()
+       
+    },[_upvotes])
     const readClicked=()=>{
         if(!expand)
         { 
@@ -52,7 +104,7 @@ export default function Blog(props) {
                 // navigate("/specific_path")
                 setblogsDisplay(false)
                 setblogDisplay(true)
-                setspecblog(props.data)
+               setspecblog({...props.data,newupvotes:upvotes,filled:filled})
             }
         if (content.length<=600)
         {
@@ -69,6 +121,72 @@ export default function Blog(props) {
             setnewcontent(content.slice(0,300)+"...")
         }
     }
+    function likeClicked()
+    {   
+     
+        
+        let state=filled
+        async function checkToken()
+        {
+        
+            
+        if(username)
+        {
+          
+
+                if(!state)
+                {   
+                    let newarray=[..._upvotes,username]
+                    let params =  {
+                        method: "PATCH",
+                        headers:{
+                          'Content-Type':'application/json'
+                      },
+                      body:JSON.stringify({
+                        upvotes:newarray
+                      })
+                    }
+                  let res= await fetch("http://192.168.123.67:5001/blogs/blog/"+_id,params)
+                      
+                     res=await res.json()
+                  
+                     
+                    
+
+                }
+                else{
+                    let newarray=_upvotes.filter((ele)=>ele!==username)
+                    let params =  {
+                        method: "PATCH",
+                        headers:{
+                          'Content-Type':'application/json'
+                      },
+                      body:JSON.stringify({
+                        upvotes:newarray
+                      })
+                    }
+                  let res= await fetch("http://192.168.123.67:5001/blogs/blog/"+_id,params)
+                      
+                     res=await res.json()
+                 
+                     
+                   
+                }
+             
+        }
+        else{
+           navigate("/signin")
+        }
+    }
+    if(filled)
+    setupvotes(upvotes-1)
+else
+setupvotes(upvotes+1)
+    setfilled(!filled)
+   
+
+    checkToken()
+    }
 
   return (
    
@@ -76,7 +194,8 @@ export default function Blog(props) {
    <section className='blog'>
         <h2 className="blog-heading" onClick={()=>{ setblogsDisplay(false)
                 setblogDisplay(true)
-                setspecblog(props.data)}}>{heading}</h2>
+                setspecblog({...props.data,newupvotes:upvotes,filled:filled})
+                }}>{heading}</h2>
         <div className="author" onClick={()=>{
             setspecusername(author)
             navigate("/specuser")
@@ -94,10 +213,66 @@ export default function Blog(props) {
                 setpostid(_id)
                 navigate("/editpost")
             }}/>
-            <img  id="delete-image" src={delete_} alt="Delete" />
+            <img  id="delete-image" src={delete_} alt="Delete" onClick={()=>{
+
+                const tryDelete=async()=>{
+                    const token=localStorage.token
+            
+                    if(token)
+                    {
+                        let params =  {
+                            method: "POST",
+                            headers:{
+                              'Content-Type':'application/json'
+                          },
+                          body:JSON.stringify({
+                            token
+                          })
+                        }
+                          let res= await fetch("http://192.168.123.67:5001/users/checktoken",params)
+                          res=await res.json()
+                           
+                        
+                         if(res.status)
+                         {
+                            
+
+                            let params =  {
+                                method: "DELETE"
+                            
+                            }
+                            console.log(_id)
+                          let res= await fetch("http://192.168.123.67:5001/blogs/blog/"+_id,params)
+                              
+                             res=await res.json()
+                           
+                             navigate("/myprofile")
+
+
+
+
+
+                         }
+                         else{
+                            navigate("/signin")
+                         }
+                    }
+                    else{
+                        navigate("/signin")
+                    }
+
+                }
+
+                tryDelete(  )
+            }} />
         </section>
         <div className="upvote-wrap">
-        <img src={upvote} className="upvote" alt=""/>
+        {!filled && <img src={upvote} className="upvote" onClick={()=>{
+            likeClicked()
+        }} alt=""/>}
+        {filled &&  <img src={upvote_filled} className="upvote" onClick={()=>{
+           likeClicked()
+        }} alt=""/>}
         <h4 className='upvote-no'>{upvotes}</h4>
         </div>
        

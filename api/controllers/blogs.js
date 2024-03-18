@@ -1,11 +1,14 @@
 const Blog=require("../models/blog")
 
 const getAllBlogs=async(req,res)=>{
-    
-    let blogs=Blog.find()
-    blogs=blogs.sort("-upvotes")
+   
+    // console.log(req.query)
+    //  let blogs=Blog.find({"heading":{$regex:req.query["search-text"]}})
+    // let sort=req.query["sort"]
+    let  blogs=Blog.aggregate([{"$match":{"heading":{$regex:req.query["search-text"]}}},{"$project":{"heading":1,"author":1,"date":1,"content":1,"upvotes":1,"length":{"$size":"$upvotes"}}}])
+    blogs=blogs.sort(req.query["sort"]+" -length")
     const result=await blogs
-
+    console.log(result)
     res.status(201).json({status:1,data:result})
     
 }
@@ -40,7 +43,7 @@ const getBlog=async(req,res)=>{
     const {id:username}=req.params
     console.log(username)
     let blogs=Blog.find({author:username})
-    blogs=blogs.sort("-upvotes")   
+    blogs=blogs.sort("-upvotesLength")   
     const result=await blogs  
 
     res.status(201).json({status:1,data:result})
@@ -84,17 +87,27 @@ const updateBlogByID=async(req,res)=>{
    }
 }
 const updateBlog=async(req,res)=>{
-    res.send("update a blog")
+    const {id}=req.params
+    console.log(id)
 }
-const deleteBlog=async(req,res)=>{
-    res.send("deletea blog")
+const deleteBlogByID=async(req,res)=>{
+    const {id}=req.params
+    try{
+        const blog=await Blog.deleteOne({_id:id})
+        res.status(200).json({status:1,blog:blog}) 
+    }
+    catch(err){
+        res.status(200).json({status:0,error:err}) 
+       }
+   
+
 }
 module.exports={
     getAllBlogs,
     getBlog,
-    createBlog,  
+    createBlog,   
     updateBlog,
-    deleteBlog,
+    deleteBlogByID,
     getBlogByID,
     updateBlogByID
 }

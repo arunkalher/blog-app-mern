@@ -65,7 +65,7 @@ export default function Myprofile(props) {
              
               
                   for ( let post of data)
-                  upvotes+=post.upvotes
+                  upvotes+=post.upvotes.length
                 setposts(posts)
                 setupvotes(upvotes)
              

@@ -68,7 +68,7 @@ export default function Createpost() {
          </section>
          <section id="content-wrap">
            <label htmlFor="content">Content</label>
-           <textarea   id="content" value={content} onChange={(e)=>{
+           <textarea  spellCheck={false} id="content" value={content} onChange={(e)=>{
              setcontent(e.target.value)
            
            }}/>
@@ -112,6 +112,8 @@ export default function Createpost() {
             { 
               seterror("Blog successfully created.")
               setcolor("green")
+              setcontent("")
+              settopic("")
               if(timeout)
               clearTimeout(timeout)
               settimeout(setTimeout(()=>seterror(""),2000))

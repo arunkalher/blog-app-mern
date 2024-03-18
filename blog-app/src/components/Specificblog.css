@@ -7,7 +7,9 @@
 
 .upvote0{
 height: 2rem;
-width: 1rem;
+width: 2rem;
+margin-right: 0.4rem;
+cursor: pointer;
 }
 
 .blog0-heading{
@@ -47,4 +49,9 @@ width: 1rem;
     align-items: center;
     gap:.1rem;
     margin: .2rem 
+}
+
+.upvote-no0{
+    margin-top: .2rem;
+
 }

@@ -9,6 +9,7 @@ import {BrowserRouter as Router,
     Route,Navigate,useNavigate} from "react-router-dom"
 export default function Blogs(props) {
   // const {specusername,setspecusername}=params.specs
+  
   const navigate=useNavigate()
   const {postid,setpostid}=props.id
     const [msg,setmsg]=useState("none")
@@ -23,29 +24,49 @@ export default function Blogs(props) {
     const [blogDisplay,setblogDisplay]=useState(false)
     const [blogsDisplay,setblogsDisplay]=useState(true)
     const [specblog,setspecblog]=useState({})
+    const [sortby,setsortby]=useState("upvotes")
    
+    const {searchtext,setsearchtext}=props.searchtext
+   
+    
+    
+    const {search,setsearch}=props.search
+    const [rerender,setrerender]=useState(true)
+    
     const error="Error..."
     //fetch blogs
     useEffect(
         ()=>{
-          console.log("useEffect")
+      
+          
         const fetchData=async()=>
         {   
             try{
               let data=""
-            console.log("user",userN)
+          
+              
+            let sort=sortby
+            if(sortby=="oldest")
+            sort="date"
+          else if( sortby=="newest")
+          sort="-date"
+        else
+        sort=" "
+        
               if(!userN)
-            data= await fetch("http://192.168.123.67:5001/blogs")
+            data= await fetch("http://192.168.123.67:5001/blogs?search-text="+searchtext+"&sort="+sort)
           else
           data= await fetch("http://192.168.123.67:5001/blogs"+"/"+userN)
          
-
+              
             if(data.ok)
             {
                 data=await data.json()
                 
         
             setblogs(data.data)
+          
+            
             setsuccess(true)
             if(data.data.length==0)
             setmsg("block")
@@ -56,7 +77,7 @@ export default function Blogs(props) {
             setLoading(false)
             }
             catch{
-             
+          
                 setLoading(false)
               
             }
@@ -76,8 +97,16 @@ export default function Blogs(props) {
                 }
                   let res= await fetch("http://192.168.123.67:5001/users/checktoken",params)
                   res=await res.json()
+                  console.log("userN",userN)
+                    console.log("logged",res.username)
                   if(userN===res.username)
-                  {setEditDelete("flex")}
+                  {
+                    
+                    setEditDelete("flex")
+                }
+                else{
+                  setEditDelete("none")
+                }
                  if(res.status)
                  {
                     setl(["My Profile","Create Post","Logout"])
@@ -92,37 +121,73 @@ export default function Blogs(props) {
         }
         fetchData()
         return ()=>setuserN("")
-         
+   
         }
-        ,[userN]
+        ,[userN,search,sortby,rerender]
     )
   return (
 
   
        <> 
        {username && <button id="blogs-back" onClick={()=>{
+        
         setuserN("")
           navigate("/")
 
         }}>{String.fromCharCode(8592)} Back</button>}
        <section id="show-msg-wrap" style={{display:msg}}>
-       <h1 id="show-msg" >There are no posts to show.</h1>
+       {/* <h1 id="show-msg" >There are no posts to show.</h1>
        <button id="create" onClick={()=>{
         navigate("/createpost")
-       }}>Create Post</button>
+       }}>Create Post</button> */}
        </section>
        
           {blogsDisplay && <section id="blogs">
               
            {(loading)?<><h1 style={{margin:"1rem auto",textAlign:"center"}}>Loading.. </h1></>:
-           (issuccess)?<>{blogs.map(blog=>{
-              return <Blog id={{postid,setpostid}} edit_delete={editDelete} spec={{specusername,setspecusername}} key={blog._id} data={blog} triggers={[blogDisplay,setblogDisplay,blogsDisplay,setblogsDisplay,specblog,setspecblog]}>Hello</Blog>
+           (issuccess)?<>
+           {(userN==="") && <> 
+          
+           <section id="search">
+
+<input type="text" id="search-text" value={searchtext} onChange={(e)=>{
+  setsearchtext(e.target.value)
+ 
+  
+}} />
+<button id="search-button" onClick={()=>{
+                setsearch(!search)
+              }}>Search</button>
+            </section>
+            <div id="sort-by-name">Sort By : {sortby}</div>
+            <section id="sort-By">
+             
+            <label className='labels' htmlFor="upvotes" onClick={()=>{
+              setsortby("upvotes")
+            }}>Upvotes</label>
+              <input type="radio" name="sort" id="upvotes" />
+              <label className='labels' htmlFor="oldest" name="sort"onClick={()=>{
+              setsortby("oldest")
+            }} >Oldest</label>
+              <input type="radio" name="sort" id="oldest" />
+
+              <label className='labels' htmlFor="newest" name="sort"onClick={()=>{
+              setsortby("newest")
+            }} >Newest</label>
+              <input type="radio" name="sort" id="newest" />
+           </section>
+            
+            </>}
+              
+           {blogs.map(blog=>{
+              return <Blog re={{rerender,setrerender}} id={{postid,setpostid}} edit_delete={editDelete} spec={{specusername,setspecusername}} key={blog._id} data={blog} triggers={[blogDisplay,setblogDisplay,blogsDisplay,setblogsDisplay,specblog,setspecblog]}>Hello</Blog>
            })}</>:<h1 className='error'>{error}</h1>}
           
           </section>}
       
           {blogDisplay && <div id="spec-blog" >
           <button id="specbutton" onClick={()=>{
+            setrerender(!rerender)
                setblogsDisplay(true)
                setblogDisplay(false)
           }}>{String.fromCharCode(8592)} Back</button>

@@ -67,7 +67,7 @@ export default function Editpost(props) {
          </section>
          <section id="edit-content-wrap">
            <label htmlFor="edit-content">Content</label>
-           <textarea   id="edit-content" value={content} onChange={(e)=>{
+           < textarea spellCheck={false} id="edit-content" value={content} onChange={(e)=>{
              setcontent(e.target.value)
            
            }}/>

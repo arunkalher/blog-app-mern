@@ -10,7 +10,7 @@ const userSchema=mongoose.Schema({
         unique:true 
     },
     password:{
-        type:String,
+        type:String,   
         required:[true,'must provide a password']
      
     },

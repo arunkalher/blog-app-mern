@@ -117,27 +117,27 @@ export default function Editprofile(props) {
     <div id="error-create" style={{color:color}}>{errmsg}</div>
     <section id="name-wrap">
      <label htmlFor="name-edit" className='edit-labels'>Name</label>
-     <textarea placeholder='User' type="text"  id="name-edit" value={name} onChange={(e)=>{
+     <textarea spellCheck={false} placeholder='User' type="text"  id="name-edit" value={name} onChange={(e)=>{
        setname(e.target.value)
   
      }}/>
    </section>
    <section id="from-wrap">
      <label htmlFor="from-edit" className='edit-labels'>From</label>
-     <textarea placeholder='New Delhi , India'  id="from-edit" value={from} onChange={(e)=>{
+     <textarea spellCheck={false} placeholder='New Delhi , India'  id="from-edit" value={from} onChange={(e)=>{
        setfrom(e.target.value)
      
      }}/>
    </section> 
    <section id="role-wrap">
      <label htmlFor="role-edit" className='edit-labels'>Role</label>
-     <textarea  placeholder='Softare Developer' id="role-edit" value={role} onChange={(e)=>{
+     <textarea  spellCheck={false} placeholder='Softare Developer' id="role-edit" value={role} onChange={(e)=>{
        setrole(e.target.value)
      }}/>
    </section> 
    <section  id="contact-wrap">
      <label htmlFor="contact-edit" className='edit-labels'>Contact</label>
-     <textarea  placeholder='abc@xyz.com' id="contact-edit" value={contact} onChange={(e)=>{
+     <textarea spellCheck={false}  placeholder='abc@xyz.com' id="contact-edit" value={contact} onChange={(e)=>{
        setcontact(e.target.value)
      
      }}/>

@@ -30,8 +30,8 @@ const blogSchema=mongoose.Schema({
         trim:true
     },
     upvotes:{
-        type:Number,
-        default:0
+        type:Array,
+        default:[]
     }
 
 })

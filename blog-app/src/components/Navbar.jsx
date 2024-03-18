@@ -7,7 +7,8 @@ import {BrowserRouter as Router,
 import home_icon from "../images/home.svg"
 export default function Navbar(props) {
   const {userN,setuserN}=props.userparams
-  
+  const {searchtext,setsearchtext}=props.searchtext
+  const {search,setsearch}=props.search
   function Navigate(ele) 
   {
     let _target=ele.replace(" ","")
@@ -24,10 +25,14 @@ export default function Navbar(props) {
    <nav id="nav">
       <img id ="home-icon" src={home_icon} alt="Home"  onClick={()=>{
          setuserN("")
+         setsearch(!search)
+         setsearchtext("")
           Navigate("/")}}/>
       <ul id="nav-items-ul">
         <li key="home" className="nav-item rem" onClick={()=>{
          setuserN("")
+         setsearch(!search)
+         setsearchtext("")
           Navigate("/")}}>Home</li>
        { props.list.map(ele=>{
       return <li key={ele} className="nav-item rem" onClick={()=>{
@@ -59,6 +64,9 @@ export default function Navbar(props) {
   <li className="verti-nav-items" onClick={()=>{
     setuserN("")
         setVerti("none")
+      
+         setsearchtext("")
+         setsearch(!search)
         navigate("/")
      
       }}>Home</li>

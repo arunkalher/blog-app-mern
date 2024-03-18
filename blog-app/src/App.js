@@ -21,6 +21,8 @@ function App() {
   const [l,setl]=useState([""])
   const [userN,setuserN]=useState("")
   const [specusername,setspecusername]=useState("")
+  const [searchtext,setsearchtext]=useState("")
+  const [search,setsearch]=useState(false)
  
   useEffect(()=>{
        
@@ -61,11 +63,11 @@ function App() {
     <Router> 
    
  
-  <Navbar list={l} userparams={{userN,setuserN}}/> 
+  <Navbar searchtext={{searchtext,setsearchtext}} search={{search,setsearch}}  list={l} userparams={{userN,setuserN}}/> 
        
     <Routes>
         <Route path="*" element={<>
-          < Blogs id={{postid,setpostid}} params={{l,setl}} userparams={{userN,setuserN}} spec={{specusername,setspecusername}}/>
+          < Blogs search={{search,setsearch}}   searchtext={{searchtext,setsearchtext}} id={{postid,setpostid}} params={{l,setl}} userparams={{userN,setuserN}} spec={{specusername,setspecusername}}/>
         </>}></Route>
         <Route path="/signin" element={<Signin params={{l,setl}}/>}></Route>
         <Route path="/signup" element={<Signup params={{l,setl}}/>}></Route>
