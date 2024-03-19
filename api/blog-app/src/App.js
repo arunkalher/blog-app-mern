@@ -2,13 +2,13 @@
 import './App.css';
 import Navbar from './components/Navbar';
 import Blogs from './components/Blogs';
-import Contextblog from './contexts/Contextblog'
+
 import Signup from './components/Signup';
 import Signin from './components/Signin';
 import {BrowserRouter as Router,
   Routes,
-  Route,Navigate,useNavigate} from "react-router-dom"
-import Specificblog from './components/Specificblog';
+  Route} from "react-router-dom"
+
 import Createpost from './components/Createpost';
 import Logout from './components/Logout';
 import Myprofile from "./components/Myprofile"
@@ -40,7 +40,7 @@ function App() {
              token
            })
          }
-           let res= await fetch("http://192.168.123.67:5001/users/checktoken",params)
+           let res= await fetch("/users/checktoken",params)
            res=await res.json()
           if(res.status)
           {

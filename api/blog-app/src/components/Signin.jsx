@@ -1,10 +1,8 @@
 import "./Signin.css"
 
 import React,{useState} from 'react'
-import {BrowserRouter as Router,
-  Routes,
-  Route,Navigate,useNavigate} from "react-router-dom"
-export default function Signin(props) {
+import {useNavigate} from "react-router-dom"
+export default function Signin() {
   
   const [username,setusername]=useState("")
   const [password,setpassword]=useState("")
@@ -33,7 +31,7 @@ export default function Signin(props) {
         
         
         const tryLogin=async ()=>{
-          console.log("loggin in")
+        
           let params =  {
             method: "POST",
             headers:{
@@ -43,10 +41,10 @@ export default function Signin(props) {
             username,password
           })
         }
-          let res= await fetch("http://192.168.123.67:5001/users/login",params)
+          let res= await fetch("/users/login",params)
           
          res=await res.json()
-         console.log(res)
+     
           if (res.status)
           {    
             navigate("/myprofile")
@@ -62,9 +60,9 @@ export default function Signin(props) {
           //     token
           //   })
           // }
-          //   let data= await fetch("http://192.168.123.67:5001/users/getuser",params)
+          //   let data= await fetch("/users/getuser",params)
           //   data=await data.json()
-          //   console.log(data)
+         
             
             
           }

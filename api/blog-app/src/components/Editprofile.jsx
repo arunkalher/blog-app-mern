@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import "./Editprofile.css"
 import {useNavigate} from "react-router-dom"
 
-export default function Editprofile(props) {
+export default function Editprofile() {
     const [name,setname]=useState("")
     const [from,setfrom]=useState("")
     const [role,setrole]=useState("")
@@ -28,7 +28,7 @@ export default function Editprofile(props) {
                  token
                })
              }
-               let res= await fetch("http://192.168.123.67:5001/users/checktoken",params)
+               let res= await fetch("/users/checktoken",params)
                res=await res.json()
               if(!res.status)
               {
@@ -50,7 +50,7 @@ export default function Editprofile(props) {
          }
         }
         checktoken()
-     },[])
+     },[navigate])
     function EditProfile()
     {
         if ( !name || !from || !role || !contact)
@@ -73,7 +73,7 @@ export default function Editprofile(props) {
           name,role,from,contact
         })
       }
-        let res= await fetch("http://192.168.123.67:5001/users/update/"+username,params)
+        let res= await fetch("/users/update/"+username,params)
        
         res=await res.json()
        if(res.status)

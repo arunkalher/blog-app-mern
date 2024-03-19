@@ -2,13 +2,13 @@ const Blog=require("../models/blog")
 
 const getAllBlogs=async(req,res)=>{
    
-    // console.log(req.query)
+  
     //  let blogs=Blog.find({"heading":{$regex:req.query["search-text"]}})
     // let sort=req.query["sort"]
     let  blogs=Blog.aggregate([{"$match":{"heading":{$regex:req.query["search-text"]}}},{"$project":{"heading":1,"author":1,"date":1,"content":1,"upvotes":1,"length":{"$size":"$upvotes"}}}])
     blogs=blogs.sort(req.query["sort"]+" -length")
     const result=await blogs
-    console.log(result)
+   
     res.status(201).json({status:1,data:result})
     
 }
@@ -39,9 +39,9 @@ const getAllBlogs=async(req,res)=>{
 // }
 
 const getBlog=async(req,res)=>{
-    console.log(req.params)
+   
     const {id:username}=req.params
-    console.log(username)
+   
     let blogs=Blog.find({author:username})
     blogs=blogs.sort("-upvotesLength")   
     const result=await blogs  
@@ -67,16 +67,16 @@ const createBlog=async(req,res)=>{
     
 }
 const getBlogByID=async(req,res)=>{
-    console.log(req.params)
+  
     const {id}=req.params
-    console.log(id)
+ 
     let blogs=await Blog.findOne({_id:id})
     res.status(201).json({status:1,data:blogs})
 }
 const updateBlogByID=async(req,res)=>{
     const {id}=req.params
 
-    console.log(req.body)
+    
     try{
        
         const blog=await Blog.updateOne({_id:id},req.body)
@@ -88,7 +88,7 @@ const updateBlogByID=async(req,res)=>{
 }
 const updateBlog=async(req,res)=>{
     const {id}=req.params
-    console.log(id)
+  
 }
 const deleteBlogByID=async(req,res)=>{
     const {id}=req.params

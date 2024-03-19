@@ -13,9 +13,7 @@ app.use(cors({
     origin:"*",
     methods:["GET","POST","PATCH","DELETE"]
 })) 
-app.get("/",(req,res)=>{
-    res.send("Blogs App API")
-})
+app.use(express.static("./blog-app/build"))
 app.use("/blogs",router)
 app.use("/users",authrouter)
 const port=5001

@@ -1,7 +1,5 @@
 import React,{useEffect} from 'react'
-import {BrowserRouter as Router,
-    Routes,
-    Route,Navigate,useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 export default function Logout() {
     const navigate=useNavigate()
     useEffect(()=>{
@@ -10,11 +8,11 @@ export default function Logout() {
         delete localStorage.token
         navigate("/")
 
-    },[])
+    },[navigate])
     return (
    
     <div>
-      Hello
+     
     </div>
   )
 }

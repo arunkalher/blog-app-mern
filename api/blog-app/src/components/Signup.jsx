@@ -1,9 +1,7 @@
 import "./Signup.css"
 import React,{useState} from 'react'
-import {BrowserRouter as Router,
-  Routes,
-  Route,Navigate,useNavigate} from "react-router-dom"
-export default function Signup(props) {
+import {useNavigate} from "react-router-dom"
+export default function Signup() {
 
   const navigate=useNavigate()
   const [username,setusername]=useState("")
@@ -82,7 +80,7 @@ export default function Signup(props) {
         settimeout(setTimeout(()=>seterror(""),2000))
           return
         }
-        if (password!=cpassword)
+        if (password!==cpassword)
        {
         seterror("Password and Confirm password don't match")
         if(timeout)
@@ -93,7 +91,7 @@ export default function Signup(props) {
         
         
         const tryRgister=async ()=>{
-          console.log("registering")
+         
           let params =  {
             method: "POST",
             headers:{
@@ -103,10 +101,10 @@ export default function Signup(props) {
             username,password
           })
         }
-          let res= await fetch("http://192.168.123.67:5001/users",params)
+          let res= await fetch("/users",params)
           
          res=await res.json()
-          console.log(res.data)
+       
           if (res.status)
           { 
             
@@ -121,13 +119,13 @@ export default function Signup(props) {
           //     token
           //   })
           // }
-          //   let data= await fetch("http://192.168.123.67:5001/users/getuser",params)
+          //   let data= await fetch("/users/getuser",params)
           //   data=await data.json()
-          //   console.log(data)
+         
             
             
           }
-          else{console.log("exists already")
+          else{
             seterror("Username already exists")
             if(timeout)
             clearTimeout(timeout)

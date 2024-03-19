@@ -1,13 +1,11 @@
 import React,{useEffect,useState} from 'react'
 import "./Specuser.css"
-import {BrowserRouter as Router,
-  Routes,
-  Route,Navigate,useNavigate} from "react-router-dom"
-  import Blog from './Blog'
+import {useNavigate} from "react-router-dom"
+ 
 export default function Specuser(props) 
 {     
-  console.log(props)
-  const {userN,setuserN}=props.userparams
+
+  const {setuserN}=props.userparams
  
   const navigate=useNavigate()
   const [name,setname]=useState("")
@@ -16,23 +14,23 @@ export default function Specuser(props)
   const [contact,setcontact]=useState("")
   const [posts,setposts]=useState("")
   const [upvotes,setupvotes]=useState("")
-  const [displayblogs,setdisplayblogs]=useState(false)
-  const [shoulddisplay,setshoulddisplay]=useState(false)
-  const [blogs,setblogs]=useState([])
+ 
+  const [setshoulddisplay]=useState(false)
+  const [setblogs]=useState([])
   const username=props.username
     useEffect(()=>{
        
         const userInfo=async()=>{
            try{
-               let res= await fetch("http://192.168.123.67:5001/users"+"/"+username)
+               let res= await fetch("/users/"+username)
                res=await res.json()
                const user=res.user
-               console.log(user)
+        
               setname(user.name)
               setrole(user.role)
               setaddress(user.from)
               setcontact(user.contact)
-              let data= await fetch("http://192.168.123.67:5001/blogs"+"/"+username)
+              let data= await fetch("/blogs/"+username)
               data=await data.json()
               data=data.data
               let upvotes=0
@@ -52,7 +50,7 @@ export default function Specuser(props)
         }
         }
       userInfo()
-     },[])
+     },[navigate,setblogs,setshoulddisplay,username])
    
     
   return (

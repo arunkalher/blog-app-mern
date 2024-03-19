@@ -1,17 +1,15 @@
 import React,{useEffect,useState} from 'react'
 import "./Editpost.css"
-import {BrowserRouter as Router,
-    Routes,
-    Route,Navigate,useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 export default function Editpost(props) {
     const navigate=useNavigate()
-    console.log(props.id)
+  
     const postid=props.id.postid
    const [content,setcontent]=useState("")
    const [topic,settopic]=useState("")
    const [color,setcolor]=useState("red")
     const [error,seterror]=useState("")
-    const [errordis,seterrordis]=useState("none")
+   
     const [timeout,settimeout]=useState("null")
   useEffect(()=>{
        
@@ -29,14 +27,14 @@ export default function Editpost(props) {
              token
            })
          }
-           let res= await fetch("http://192.168.123.67:5001/users/checktoken",params)
+           let res= await fetch("/users/checktoken",params)
            res=await res.json()
           
           if(!res.status)
           {
              navigate("/signin")
           }
-          let data= await fetch("http://192.168.123.67:5001/blogs/blog/"+postid)
+          let data= await fetch("/blogs/blog/"+postid)
           data=await data.json()
           data=data.data
           settopic(data.heading)
@@ -49,7 +47,7 @@ export default function Editpost(props) {
      }
     }
     checktoken()
- },[])
+ },[navigate,postid])
   return (
     <div>
 
@@ -73,7 +71,7 @@ export default function Editpost(props) {
            }}/>
          </section>
          <button id="update-button"  onClick={()=>{
-           if ( topic=="")
+           if ( topic==="")
            {
              seterror("Please give some heading.")
              setcolor("red")
@@ -82,7 +80,7 @@ export default function Editpost(props) {
              settimeout(setTimeout(()=>seterror(""),2000))
              return
            }
-          if(content=="")
+          if(content==="")
           {
             seterror("Please give some content.")
               setcolor("red")
@@ -93,7 +91,7 @@ export default function Editpost(props) {
           }
          
           const tryUpdate=async ()=>{
-            console.log("updating")
+        
             let params =  {
               method: "PATCH",
               headers:{
@@ -103,7 +101,7 @@ export default function Editpost(props) {
               heading:topic,content
             })
           }
-        let res= await fetch("http://192.168.123.67:5001/blogs/blog/"+postid,params)
+        let res= await fetch("/blogs/blog/"+postid,params)
             
            res=await res.json()
          
@@ -114,7 +112,7 @@ export default function Editpost(props) {
               if(timeout)
               clearTimeout(timeout)
               settimeout(setTimeout(()=>seterror(""),2000))
-              console.log("success")
+          
               
              
               

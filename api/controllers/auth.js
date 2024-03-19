@@ -2,7 +2,7 @@ const User=require("../models/user")
 const jwt=require("jsonwebtoken")
 const bcrypt=require("bcryptjs")
 const register=async(req,res)=>{
-    console.log("req")
+
     const {username,password}=req.body
     if (!username || !password)
     {
@@ -15,7 +15,7 @@ const register=async(req,res)=>{
   
 
 
-   console.log(username,newpassword)
+  
     
     try{
         const user=await User.create({username:username,password:newpassword})
@@ -33,7 +33,7 @@ const login=async(req,res)=>{
     
     const {username,password}=req.body
     const user=await User.findOne({username:username})
-    // console.log(user)
+  
     if(!user)
     {    return res.status(200).json({status:0,error:"Invalid credentials"}) 
 
@@ -69,7 +69,7 @@ const checktoken=async (req,res)=>
 
 const getUser=async (req,res)=>
 {   
-    console.log("p",req.params)
+
     const {username}=req.params
     try{
        
@@ -84,8 +84,7 @@ const getUser=async (req,res)=>
 }
 const updateUser=async (req,res)=>{
     const {username}=req.params
-    console.log(username)
-    console.log(req.body)
+  
     try{
        
         const user=await User.updateOne({username:username},req.body)

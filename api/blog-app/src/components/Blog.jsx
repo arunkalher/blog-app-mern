@@ -1,26 +1,23 @@
-import React,{useReact, useState,useContext,useEffect} from 'react'
+import React,{ useState,useEffect} from 'react'
 import upvote from "../images/empty_like.jpg"
 import upvote_filled from "../images/filled_like.jpg"
 import edit from "../images/edit.png"
 import delete_ from "../images/delete.png"
 import "./Blog.css"
-import Contextblog from '../contexts/Contextblog'
-import {BrowserRouter as Router,
-Routes,
-Route,Navigate,useNavigate} from "react-router-dom"
-import Specificblog from './Specificblog'
+import {useNavigate} from "react-router-dom"
+
 
 
 export default function Blog(props) {
 
-    const {postid,setpostid}=props.id
+    const {setpostid}=props.id
     const navigate=useNavigate()
-    const {setspecuser,setspecusername}=props.spec
+    const {setspecusername}=props.spec
   
     const edit_delete=props.edit_delete
     const [filled,setfilled]=useState(false)
-    const [blogDisplay,setblogDisplay,blogsDisplay,setblogsDisplay,specblog,setspecblog]=props.triggers
-    const {rerender,setrerender}=props.re
+    const [setblogDisplay,setblogsDisplay,setspecblog]=props.triggers
+   
     // <Router>
     // <Routes>
     // <Route path="/specific_path" element={<Specificblog />}></Route>
@@ -30,10 +27,10 @@ export default function Blog(props) {
    
    
     // </Router>
-    let {heading:heading,author,date,content,upvotes:_upvotes,_id}=props.data
+    let {heading,author,date,content,upvotes:_upvotes,_id}=props.data
     const [upvotes,setupvotes]=useState(_upvotes.length)
  
-   console.log(_upvotes)
+  
     const [username,setusername]=useState("")
     const [expand,setExpand]=useState(false)
     const [onceClicked,setOnceClicked]=useState(false)
@@ -51,8 +48,7 @@ export default function Blog(props) {
     const [newcontent,setnewcontent]=useState(newC)
     useEffect(
         ()=>{
-            console.log("useeffect")
-        console.log(_upvotes.length)
+  
     setupvotes(_upvotes.length)
             
         const fetchData=async()=>
@@ -70,8 +66,10 @@ export default function Blog(props) {
                   body:JSON.stringify({
                     token
                   })
+
+
                 }
-                  let res= await fetch("http://192.168.123.67:5001/users/checktoken",params)
+                  let res= await fetch("/users/checktoken",params)
                   res=await res.json()
            
                  if(res.status)
@@ -80,7 +78,7 @@ export default function Blog(props) {
                     if (_upvotes.includes(res.username))
                     {
                      setfilled(true)
-                     console.log("filled",filled)
+                    
                     }
                     else{
                         setfilled(false)
@@ -146,9 +144,9 @@ export default function Blog(props) {
                         upvotes:newarray
                       })
                     }
-                  let res= await fetch("http://192.168.123.67:5001/blogs/blog/"+_id,params)
+                 await fetch("/blogs/blog/"+_id,params)
                       
-                     res=await res.json()
+                   
                   
                      
                     
@@ -165,9 +163,9 @@ export default function Blog(props) {
                         upvotes:newarray
                       })
                     }
-                  let res= await fetch("http://192.168.123.67:5001/blogs/blog/"+_id,params)
+                 await fetch("/blogs/blog/"+_id,params)
                       
-                     res=await res.json()
+                    
                  
                      
                    
@@ -229,7 +227,7 @@ setupvotes(upvotes+1)
                             token
                           })
                         }
-                          let res= await fetch("http://192.168.123.67:5001/users/checktoken",params)
+                          let res= await fetch("/users/checktoken",params)
                           res=await res.json()
                            
                         
@@ -241,10 +239,10 @@ setupvotes(upvotes+1)
                                 method: "DELETE"
                             
                             }
-                            console.log(_id)
-                          let res= await fetch("http://192.168.123.67:5001/blogs/blog/"+_id,params)
+                          
+                           await fetch("/blogs/blog/"+_id,params)
                               
-                             res=await res.json()
+                            
                            
                              navigate("/myprofile")
 
@@ -263,7 +261,7 @@ setupvotes(upvotes+1)
 
                 }
 
-                tryDelete(  )
+                tryDelete()
             }} />
         </section>
         <div className="upvote-wrap">

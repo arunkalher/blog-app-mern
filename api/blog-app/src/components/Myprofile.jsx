@@ -1,12 +1,12 @@
 
 import React,{useEffect,useState} from 'react'
-import {BrowserRouter as Router,
+import {
     Routes,
-    Route,Navigate,useNavigate} from "react-router-dom"
+    Route,useNavigate} from "react-router-dom"
 import "./Myprofile.css"
 import  Editprofile from './Editprofile'
 export default function Myprofile(props) {
-  const {userN,setuserN}=props.userparams
+  const {setuserN}=props.userparams
   const [username,setusername]=useState("")
   const [posts,setposts]=useState("")
   const [upvotes,setupvotes]=useState("")
@@ -32,7 +32,7 @@ export default function Myprofile(props) {
              token
            })
          }
-           let res= await fetch("http://192.168.123.67:5001/users/checktoken",params)
+           let res= await fetch("/users/checktoken",params)
            res=await res.json()
           
           if(!res.status)
@@ -40,9 +40,9 @@ export default function Myprofile(props) {
              navigate("/")
           }
           else{
-            console.log(res)
+          
             setusername(res.username)
-             let data= await fetch("http://192.168.123.67:5001/blogs"+"/"+res.username)
+             let data= await fetch("/blogs/"+res.username)
            
              
             
@@ -79,7 +79,7 @@ export default function Myprofile(props) {
      }
     }
     checktoken()
- },[])
+ },[navigate])
   return (
     <Routes>
       <Route path="/edit" element={<Editprofile/>}></Route>

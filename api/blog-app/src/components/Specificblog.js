@@ -1,26 +1,24 @@
-import React,{useContext, useEffect,useState} from 'react'
-import Contextblog from '../contexts/Contextblog'
+import React,{ useEffect,useState} from 'react'
+
 import upvote from "../images/empty_like.jpg"
 import upvote_filled from "../images/filled_like.jpg"
 import "./Specificblog.css"
-import {BrowserRouter as Router,
-  Routes,
-  Route,Navigate,useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 export default function Specificblog(props) {
   const navigate=useNavigate()
-  const {setspecuser,setspecusername}=props.spec
+  const {setspecusername}=props.spec
   const [filled,setfilled]=useState(props.data.filled)
 
   useEffect(()=>{window.scrollTo(0,0)
-  console.log("specified blogt")
+ 
   
   },[])
-  console.log(props.data)
-  let {heading,author,date,content,upvotes,newupvotes,minRead,_id}=props.data
+
+  let {heading,author,content,upvotes,newupvotes,_id}=props.data
   const [Upvotes,setUpvotes]=useState(newupvotes)
   function likeClicked()
     {   
-        // console.log(username)
+       
         let state=filled
         async function checkToken()
         {
@@ -38,7 +36,7 @@ export default function Specificblog(props) {
                   token
                 })
               }
-                let res= await fetch("http://192.168.123.67:5001/users/checktoken",params)
+                let res= await fetch("/users/checktoken",params)
                 res=await res.json()
          
                if(res.status)
@@ -73,10 +71,10 @@ export default function Specificblog(props) {
                         upvotes:newarray
                       })
                     }
-                  let res= await fetch("http://192.168.123.67:5001/blogs/blog/"+_id,params)
+                 await fetch("/blogs/blog/"+_id,params)
                       
-                     res=await res.json()
-                   console.log(res)
+                     
+                 
 
                   
                    
@@ -94,10 +92,10 @@ export default function Specificblog(props) {
                         upvotes:newarray
                       })
                     }
-                  let res= await fetch("http://192.168.123.67:5001/blogs/blog/"+_id,params)
+                 await fetch("/blogs/blog/"+_id,params)
                       
-                     res=await res.json()
-                   console.log(res)
+                     
+                
 
                 }
     

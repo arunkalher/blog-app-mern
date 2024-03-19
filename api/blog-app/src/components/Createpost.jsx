@@ -1,7 +1,5 @@
 import React,{useEffect,useState} from 'react'
-import {BrowserRouter as Router,
-    Routes,
-    Route,Navigate,useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import "./Createpost.css"
 export default function Createpost() {
     const [username,setusername]=useState("")
@@ -9,7 +7,7 @@ export default function Createpost() {
     const [content,setcontent]=useState("")
     const [color,setcolor]=useState("red")
     const [error,seterror]=useState("")
-    const [errordis,seterrordis]=useState("none")
+ 
     const [timeout,settimeout]=useState("null")
     const navigate=useNavigate()
     useEffect(()=>{
@@ -28,7 +26,7 @@ export default function Createpost() {
                 token
               })
             }
-              let res= await fetch("http://192.168.123.67:5001/users/checktoken",params)
+              let res= await fetch("/users/checktoken",params)
               res=await res.json()
              if(!res.status)
              {
@@ -46,7 +44,7 @@ export default function Createpost() {
         }
        }
        checktoken()
-    },[])
+    },[navigate])
   return (
    <section id="create-post">
     <button id="create-post-back" onClick={()=>{
@@ -74,7 +72,7 @@ export default function Createpost() {
            }}/>
          </section>
          <button id="post-button" onClick={()=>{
-           if ( topic=="")
+           if ( topic==="")
            {
              seterror("Please give some heading.")
              setcolor("red")
@@ -83,7 +81,7 @@ export default function Createpost() {
              settimeout(setTimeout(()=>seterror(""),2000))
              return
            }
-          if(content=="")
+          if(content==="")
           {
             seterror("Please give some content.")
               setcolor("red")
@@ -94,7 +92,7 @@ export default function Createpost() {
           }
          
           const tryCreate=async ()=>{
-            console.log("creating")
+           
             let params =  {
               method: "POST",
               headers:{
@@ -104,10 +102,10 @@ export default function Createpost() {
               heading:topic,content,author:username
             })
           }
-            let res= await fetch("http://192.168.123.67:5001/blogs",params)
+            let res= await fetch("/blogs",params)
             
            res=await res.json()
-           console.log(res)
+     
             if (res.status)
             { 
               seterror("Blog successfully created.")
@@ -117,7 +115,7 @@ export default function Createpost() {
               if(timeout)
               clearTimeout(timeout)
               settimeout(setTimeout(()=>seterror(""),2000))
-              console.log("success")
+           
               // navigate("/")
               // localStorage.token=res.token
               // navigate("/signin")
@@ -131,9 +129,9 @@ export default function Createpost() {
             //     token
             //   })
             // }
-            //   let data= await fetch("http://192.168.123.67:5001/users/getuser",params)
+            //   let data= await fetch("/users/getuser",params)
             //   data=await data.json()
-            //   console.log(data)
+          
               
               
             }

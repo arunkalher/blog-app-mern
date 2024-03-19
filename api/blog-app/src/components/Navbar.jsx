@@ -1,13 +1,11 @@
 import React,{useState} from 'react'
 import "./Navbar.css"
 import cross  from "../images/cross3.png"
-import {BrowserRouter as Router,
-  Routes,
-  Route,Navigate,useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import home_icon from "../images/home.svg"
 export default function Navbar(props) {
-  const {userN,setuserN}=props.userparams
-  const {searchtext,setsearchtext}=props.searchtext
+  const {setuserN}=props.userparams
+  const {setsearchtext}=props.searchtext
   const {search,setsearch}=props.search
   function Navigate(ele) 
   {
@@ -15,7 +13,7 @@ export default function Navbar(props) {
     _target=_target.toLowerCase()
  
     
-    console.log("taregt",_target)
+   
     navigate(_target)
   }
   const [verti,setVerti]=useState("none")

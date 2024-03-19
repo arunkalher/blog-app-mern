@@ -1,12 +1,9 @@
 import React,{useState,useEffect} from 'react'
 import Blog from './Blog'
 import "./Blogs.css"
-import photo from "../images/cross1.png"
-import Specuser from './Specuser'
+
 import Specificblog from './Specificblog'
-import {BrowserRouter as Router,
-    Routes,
-    Route,Navigate,useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 export default function Blogs(props) {
   // const {specusername,setspecusername}=params.specs
   
@@ -17,7 +14,7 @@ export default function Blogs(props) {
     const {specusername,setspecusername}=props.spec
     const {userN,setuserN}=props.userparams
     const username=userN
-    const {l,setl}=props.params
+    const {setl}=props.params
     const [blogs,setblogs]=useState(null)
     const [loading,setLoading]=useState(true)
     const [issuccess,setsuccess]=useState(false)
@@ -46,17 +43,17 @@ export default function Blogs(props) {
           
               
             let sort=sortby
-            if(sortby=="oldest")
+            if(sortby==="oldest")
             sort="date"
-          else if( sortby=="newest")
+          else if( sortby==="newest")
           sort="-date"
         else
         sort=" "
         
               if(!userN)
-            data= await fetch("http://192.168.123.67:5001/blogs?search-text="+searchtext+"&sort="+sort)
+            data= await fetch("/blogs?search-text="+searchtext+"&sort="+sort)
           else
-          data= await fetch("http://192.168.123.67:5001/blogs"+"/"+userN)
+          data= await fetch("/blogs/"+userN)
          
               
             if(data.ok)
@@ -68,7 +65,7 @@ export default function Blogs(props) {
           
             
             setsuccess(true)
-            if(data.data.length==0)
+            if(data.data.length===0)
             setmsg("block")
                 
             
@@ -95,10 +92,10 @@ export default function Blogs(props) {
                     token
                   })
                 }
-                  let res= await fetch("http://192.168.123.67:5001/users/checktoken",params)
+                  let res= await fetch("/users/checktoken",params)
                   res=await res.json()
-                  console.log("userN",userN)
-                    console.log("logged",res.username)
+              
+                   
                   if(userN===res.username)
                   {
                     
@@ -123,30 +120,30 @@ export default function Blogs(props) {
         return ()=>setuserN("")
    
         }
-        ,[userN,search,sortby,rerender]
+        ,[userN,search,sortby,rerender,searchtext,setl,setuserN]
     )
   return (
 
   
        <> 
+
+
        {username && <button id="blogs-back" onClick={()=>{
         
         setuserN("")
           navigate("/")
 
         }}>{String.fromCharCode(8592)} Back</button>}
-       <section id="show-msg-wrap" style={{display:msg}}>
-       {/* <h1 id="show-msg" >There are no posts to show.</h1>
-       <button id="create" onClick={()=>{
-        navigate("/createpost")
-       }}>Create Post</button> */}
-       </section>
+
+
+
        
           {blogsDisplay && <section id="blogs">
               
-           {(loading)?<><h1 style={{margin:"1rem auto",textAlign:"center"}}>Loading.. </h1></>:
-           (issuccess)?<>
-           {(userN==="") && <> 
+           {(loading) && <h1 style={{margin:"1rem auto",textAlign:"center"}}>Loading.. </h1>}
+
+           {(!loading) && (issuccess)  && 
+           (userN==="") && <> 
           
            <section id="search">
 
@@ -178,10 +175,25 @@ export default function Blogs(props) {
            </section>
             
             </>}
+
+
+              {
+                 (!loading) && (issuccess)  && 
               
-           {blogs.map(blog=>{
-              return <Blog re={{rerender,setrerender}} id={{postid,setpostid}} edit_delete={editDelete} spec={{specusername,setspecusername}} key={blog._id} data={blog} triggers={[blogDisplay,setblogDisplay,blogsDisplay,setblogsDisplay,specblog,setspecblog]}>Hello</Blog>
-           })}</>:<h1 className='error'>{error}</h1>}
+              <>
+           {blogs.map(blog=>
+             <Blog re={{rerender,setrerender}} id={{postid,setpostid}} edit_delete={editDelete} spec={{specusername,setspecusername}} key={blog._id} data={blog} triggers={[blogDisplay,setblogDisplay,blogsDisplay,setblogsDisplay,specblog,setspecblog]} />
+           )}
+           
+           </>
+          }
+           
+           {
+             (!loading) && (!issuccess)  && <h1 className='error'>{error}</h1>
+           }
+           
+           
+          
           
           </section>}
       
