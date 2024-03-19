@@ -17,7 +17,7 @@ export default function Myprofile(props) {
 
   const navigate=useNavigate()
   useEffect(()=>{
-       
+      
     const checktoken=async()=>{
      const token=localStorage.token
          
@@ -36,8 +36,8 @@ export default function Myprofile(props) {
            res=await res.json()
           
           if(!res.status)
-          {
-             navigate("/")
+          { 
+             navigate("/signin")
           }
           else{
           
@@ -74,7 +74,7 @@ export default function Myprofile(props) {
           
      }
      else{
-         navigate("/")
+         navigate("/signin")
          
      }
     }

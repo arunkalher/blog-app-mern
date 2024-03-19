@@ -16,7 +16,7 @@ export default function Blog(props) {
   
     const edit_delete=props.edit_delete
     const [filled,setfilled]=useState(false)
-    const [setblogDisplay,setblogsDisplay,setspecblog]=props.triggers
+    const {setblogDisplay,setblogsDisplay,setspecblog}=props.triggers
    
     // <Router>
     // <Routes>

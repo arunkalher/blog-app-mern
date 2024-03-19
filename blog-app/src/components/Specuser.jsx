@@ -15,8 +15,8 @@ export default function Specuser(props)
   const [posts,setposts]=useState("")
   const [upvotes,setupvotes]=useState("")
  
-  const [setshoulddisplay]=useState(false)
-  const [setblogs]=useState([])
+  const [shoulddisplay,setshoulddisplay]=useState(false)
+  const [blogs,setblogs]=useState([])
   const username=props.username
     useEffect(()=>{
        
@@ -45,7 +45,8 @@ export default function Specuser(props)
               }
               setblogs(data)
           }
-          catch{
+          catch(){
+          
             navigate("/")
         }
         }

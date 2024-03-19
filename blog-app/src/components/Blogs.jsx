@@ -182,7 +182,7 @@ export default function Blogs(props) {
               
               <>
            {blogs.map(blog=>
-             <Blog re={{rerender,setrerender}} id={{postid,setpostid}} edit_delete={editDelete} spec={{specusername,setspecusername}} key={blog._id} data={blog} triggers={[blogDisplay,setblogDisplay,blogsDisplay,setblogsDisplay,specblog,setspecblog]} />
+             <Blog re={{rerender,setrerender}} id={{postid,setpostid}} edit_delete={editDelete} spec={{specusername,setspecusername}} key={blog._id} data={blog} triggers={{blogDisplay,setblogDisplay,blogsDisplay,setblogsDisplay,specblog,setspecblog}} />
            )}
            
            </>
