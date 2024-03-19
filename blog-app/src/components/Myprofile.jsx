@@ -97,7 +97,7 @@ export default function Myprofile(props) {
     <div className='post-field'>Name : <span id="name-">{name}</span></div>
     <div className='post-field'>Role : <span id="role-">{role}</span></div>
     <div className='post-field'>From : <span id="address-">{address}</span></div>
-    <div className='post-field'>Contact : <span id="contact-"><a href={"mailto:"+contact}>{contact}</a></span></div>
+    <div className='post-field'>Contact : <span id="contact-">{contact}</span></div>
   
      <button id="edit-profile" onClick={()=>{
     

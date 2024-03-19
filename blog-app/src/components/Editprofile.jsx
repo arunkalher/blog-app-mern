@@ -1,8 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import "./Editprofile.css"
-import {BrowserRouter as Router,
-    Routes,
-    Route,Navigate,useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 
 export default function Editprofile(props) {
     const [name,setname]=useState("")
@@ -34,12 +32,16 @@ export default function Editprofile(props) {
                res=await res.json()
               if(!res.status)
               {
-                 navigate("/")
+                 navigate("/signin")
               }
               else{
              
                  setusername(res.username)
-              }
+                 setfrom(res.user.from)
+                 setname(res.user.name)
+                 setcontact(res.user.contact)
+                 setrole(res.user.role)
+              }    
               
          }
          else{

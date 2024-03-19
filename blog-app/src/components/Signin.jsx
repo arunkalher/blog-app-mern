@@ -48,8 +48,8 @@ export default function Signin(props) {
          res=await res.json()
          console.log(res)
           if (res.status)
-          { 
-            navigate("/")
+          {    
+            navigate("/myprofile")
             localStorage.token=res.token
             // navigate("/signin")
           //   const token=res.data
