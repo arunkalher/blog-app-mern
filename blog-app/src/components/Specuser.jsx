@@ -45,7 +45,7 @@ export default function Specuser(props)
               }
               setblogs(data)
           }
-          catch(){
+          catch{
           
             navigate("/")
         }
