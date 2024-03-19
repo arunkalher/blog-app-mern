@@ -117,7 +117,7 @@ export default function Editprofile() {
           navigate("/myprofile")
         }}>{String.fromCharCode(8592)} Back</button>
     <div id="error-create" style={{color:color}}>{errmsg}</div>
-    <section id="name-wrap">
+    <section id="ename-wrap">
      <label htmlFor="name-edit" className='edit-labels'>Name</label>
      <textarea spellCheck={false} placeholder='User' type="text"  id="name-edit" value={name} onChange={(e)=>{
        setname(e.target.value)

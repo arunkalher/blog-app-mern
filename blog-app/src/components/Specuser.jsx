@@ -36,7 +36,9 @@ export default function Specuser(props)
               let upvotes=0
              
               for ( let post of data)
-              upvotes+=post.upvotes
+              upvotes+=post.upvotes.length
+               
+              
               setupvotes(upvotes)
               setposts(data.length)
               if(data.length>0)
@@ -64,7 +66,7 @@ export default function Specuser(props)
     <div className='post-field'>Name : <span id="name-spec">{name}</span></div>
     <div className='post-field'>Role : <span id="role-spec">{role}</span></div>
     <div className='post-field'>From : <span id="address-spec">{address}</span></div>
-    <div className='post-field'>Contact : <span id="contact-"><a href={"mailto:"+contact}>{contact}</a></span></div>
+    <div className='post-field'>Contact : <span id="contact-">{contact}</span></div>
     
   
    
